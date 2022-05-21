@@ -32,26 +32,16 @@ router.get("/videogames", async (req, res) => {
 				data = data.data;
 				data.results.forEach((entry) => games.push(entry));
 			}
+			const dbGames = await Videogame.findAll({ include: [{ model: Genre }] });
+			console.log(dbGames)
+			dbGames.forEach(game => games.push(game))
 			games = format(games, "general");
+			console.log(games.length)
 			res.json(games);
 		}
 	} catch (error) {
 		console.log(error);
 		res.json(error);
-	}
-});
-
-router.get("/videogamesdb", async (req, res) => {
-	try {
-		let dbGames = await Videogame.findAll({ include: [{model: Genre}]});
-		if(dbGames.length === 0) res.json('empty database')
-		else {
-			dbGames = format(dbGames, 'general')
-			res.json(dbGames)
-		}
-	} catch (error) {
-		console.log(error)
-		res.json(error.message)
 	}
 });
 
