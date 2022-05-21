@@ -1,0 +1,31 @@
+.-database models   =>  done
+.-ruta get games  =>   done
+.-ruta get games + query name   =>   done
+.-ruta get details by id(API)   =>   done
+.-ruta get details by id {
+  -API => done
+  -base de datos => done
+}
+.-ruta get genres{
+  -obtener de API => done
+  -guardar en base de datos => done
+}
+.-ruta post   => done
+
+<--------------------------------------------------->
+
+NOTA!!!!  --- No se están pasando las id's ---
+data para:
+-ruta principal:
+  -imagen
+  -nombre
+  -generos
+
+-ruta detalle:
+  -imagen
+  -nombre
+  -generos
+  -descripcion
+  -fecha de lanzamiento
+  -rating 
+  -plataformas
