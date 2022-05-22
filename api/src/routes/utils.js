@@ -27,6 +27,7 @@ const format = (data, type) => {
 		},
 		detail: function (data) {
 			return {
+				id: data.id,
 				image: data.background_image,
 				name: data.name,
 				description: data.description,

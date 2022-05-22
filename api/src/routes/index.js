@@ -53,6 +53,7 @@ router.get("/videogame/:idVideogame", async (req, res) => {
 				`${url}/games/${idVideogame}?key=${apiKey}`
 			);
 			data = format(data, "detail");
+			console.log(data)
 			res.json(data);
 		} else {
 			let game = await Videogame.findByPk(idVideogame, {
@@ -60,6 +61,7 @@ router.get("/videogame/:idVideogame", async (req, res) => {
 			});
 			if (game instanceof Videogame) {
 				game = format(game, "detailDB");
+				console.log(game)
 				res.json(game);
 			} else throw new Error("couldn't find game");
 		}
@@ -127,9 +129,6 @@ router.post("/videogame", async (req, res) => {
 				platforms,
 			};
 			res.json(formatedData);
-			// const test = await Videogame.findByPk(newGame.id, {
-			// 	include: [{ model: Genre }],
-			// });
 		}
 	} catch (error) {
 		console.log(error);
