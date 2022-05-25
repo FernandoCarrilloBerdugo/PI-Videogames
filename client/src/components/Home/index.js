@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getVideogames } from "../../redux/actions";
 import Card from "../Card";
+import Loading from "../Loading";
 import "./index.css";
 
 const Home = () => {
@@ -30,7 +31,7 @@ const Home = () => {
 						))}
 				</div>
 			) : (
-				<div>loading please wait...</div>
+				<div><Loading /></div>
 			)}
 		</div>
 	);

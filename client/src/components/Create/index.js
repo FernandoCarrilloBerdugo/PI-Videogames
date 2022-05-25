@@ -14,14 +14,7 @@ const Create = () => {
 		platforms: [],
 	});
 
-	const [error, setError] = useState({
-		name: "",
-		description: "",
-		released: "",
-		rating: "",
-		genre: "",
-		platforms: "",
-	});
+	const [error, setError] = useState({});
 
 	const dispatch = useDispatch();
 
@@ -130,6 +123,19 @@ const Create = () => {
 		})
 	}
 
+	function handlePlatforms(e) {
+		let updatePlatforms = [...data.platforms]
+		if(e.target.checked) {
+			updatePlatforms.push(e.target.value)
+		} else {
+			updatePlatforms = updatePlatforms.filter(platform => platform !== e.target.value)
+		}
+		setData({
+			...data,
+			[e.target.name]: updatePlatforms
+		})
+	}
+
 	return (
 		//poner error e input en un solo div?
 		<div className="create-container">
@@ -187,10 +193,16 @@ const Create = () => {
 					</label>
 				</div>
 				<div className="Genres-container">
+					<h2>Select the genres that apply</h2>
 					{games.genres.length && games.genres.map(genre => (
 						<div key={genre}><input type="checkbox" name="genre" value={genre} onChange={handleGenres}/><span>{genre}</span></div>
 					))}
-					{/* <input type="checkbox" name="genres" value="test" onChange={handleCheck}/> */}
+				</div>
+				<div className="Platforms-container">
+					<h2>Select the platforms that apply</h2>
+					{games.platforms.length && games.platforms.map(platform => (
+						<div key={platform}><input type="checkbox" name="platforms" value={platform} onChange={handlePlatforms}/><span>{platform}</span></div>
+					))}
 				</div>
 			</form>
 		</div>
