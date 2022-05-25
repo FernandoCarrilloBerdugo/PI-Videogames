@@ -1,0 +1,75 @@
+.h3{
+  margin: 0;
+}
+
+.detail-container {
+	background-color: black;
+	color: white;
+	justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.detail-name{
+  width: 100%;
+  margin-top: 10px;
+}
+
+.game-name {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin: 0;
+}
+
+.game-image {
+	max-width: 70%;
+	height: auto;
+	border-radius: 15px;
+}
+
+.released-rating {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-evenly;
+	font-size: large;
+}
+
+.released-rating-span{
+  padding: 5px 15px;
+}
+
+.genres {
+	display: flex;
+	flex-wrap: nowrap;
+	justify-content: center;
+	align-items: center;
+}
+
+.genre-li{
+  margin: 0;
+}
+
+.platforms {
+	display: flex;
+	flex-wrap: nowrap;
+	width: 60%;
+	margin: 0;
+	justify-content: center;
+	align-items: center;
+}
+
+.platforms-list {
+	display: flex;
+	flex-wrap: wrap;
+	width: 50%;
+	justify-content: center;
+	align-items: content;
+}
+
+.platforms-list-li {
+	padding: 0 10%;
+  width: 100%;
+}

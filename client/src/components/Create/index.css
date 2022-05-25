@@ -1,0 +1,11 @@
+.input-container{
+  margin:0.4rem 0;
+}
+
+.error-container{
+  color:red
+}
+
+textarea{
+  resize: none;
+}

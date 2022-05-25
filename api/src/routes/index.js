@@ -33,10 +33,8 @@ router.get("/videogames", async (req, res) => {
 				data.results.forEach((entry) => games.push(entry));
 			}
 			const dbGames = await Videogame.findAll({ include: [{ model: Genre }] });
-			console.log(dbGames)
 			dbGames.forEach(game => games.push(game))
 			games = format(games, "general");
-			console.log(games.length)
 			res.json(games);
 		}
 	} catch (error) {
@@ -53,7 +51,6 @@ router.get("/videogame/:idVideogame", async (req, res) => {
 				`${url}/games/${idVideogame}?key=${apiKey}`
 			);
 			data = format(data, "detail");
-			console.log(data)
 			res.json(data);
 		} else {
 			let game = await Videogame.findByPk(idVideogame, {
@@ -61,7 +58,6 @@ router.get("/videogame/:idVideogame", async (req, res) => {
 			});
 			if (game instanceof Videogame) {
 				game = format(game, "detailDB");
-				console.log(game)
 				res.json(game);
 			} else throw new Error("couldn't find game");
 		}

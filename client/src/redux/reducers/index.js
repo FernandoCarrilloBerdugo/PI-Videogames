@@ -2,17 +2,20 @@ import {
 	GET_VIDEOGAMES,
 	GET_VIDEOGAME_DETAIL,
 	GET_GENRES,
-	CREATE_VIDEOGAME,
+	GET_PLATFORMS,
+	// CREATE_VIDEOGAME,
 	CLEAR_PAGE,
-	FILTER,
+	// FILTER,
 } from "../actions/actionTypes";
 
 const initialState = {
 	videogames: [],
 	videogameDetail: [],
   genres: [],
+	platforms: [],
 	filteredVideogames: [],
 	orderedVideogames: [],
+	loading: true,
 };
 
 export default function reducer(state = initialState, { type, payload }) {
@@ -21,6 +24,7 @@ export default function reducer(state = initialState, { type, payload }) {
 			return {
 				...state,
 				videogames: payload,
+				loading: false
 			};
     
     case GET_VIDEOGAME_DETAIL:
@@ -35,10 +39,16 @@ export default function reducer(state = initialState, { type, payload }) {
         genres: payload
       }
 
+		case GET_PLATFORMS:
+			return {
+				...state,
+				platforms: payload
+			}
+
     case CLEAR_PAGE:
       return {
         ...state,
-        
+				videogameDetail: []
       }
 		default:
 			return state;

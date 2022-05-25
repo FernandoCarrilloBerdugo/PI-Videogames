@@ -4,7 +4,8 @@ import {
 	GET_GENRES,
 	CREATE_VIDEOGAME,
 	CLEAR_PAGE,
-	FILTER,
+	GET_PLATFORMS,
+	// FILTER,
 } from "./actionTypes";
 import axios from "axios";
 
@@ -27,6 +28,26 @@ export function getGenres() {
 	return async (dispatch) => {
 		const { data } = await axios.get("http://localhost:3001/genres");
 		dispatch({ type: GET_GENRES, payload: data });
+	};
+}
+
+export function getPlatforms() {
+	return async (dispatch) => {
+		const data = [
+			"PC",
+			"MacOS",
+			"Linux",
+			"PlayStation 4",
+			"PlayStation 5",
+			"PSP",
+			"PS VITA",
+			"Xbox Series S/X",
+			"Xbox One",
+			"Xbox 360",
+			"Nintendo Switch",
+			"Nintendo 3DS/2DS",
+		];
+		dispatch({type: GET_PLATFORMS, payload: data})
 	};
 }
 
