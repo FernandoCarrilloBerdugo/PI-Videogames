@@ -47,14 +47,18 @@ export function getPlatforms() {
 			"Nintendo Switch",
 			"Nintendo 3DS/2DS",
 		];
-		dispatch({type: GET_PLATFORMS, payload: data})
+		dispatch({ type: GET_PLATFORMS, payload: data });
 	};
 }
 
 export function createVideogame(input) {
 	return async (dispatch) => {
-		const { data } = await axios.post("http://localhost:3001/videogame", input);
-		dispatch({ type: CREATE_VIDEOGAME, payload: data });
+			const { data } = await axios.post("http://localhost:3001/videogame",input);
+			if (data.name) {
+				dispatch({ type: CREATE_VIDEOGAME, payload: data });
+				window.alert("game was created succesfully")
+			}
+			else window.alert("Game with that name already exist in the database")
 	};
 }
 

@@ -3,6 +3,7 @@ import { validDate } from "./regexp";
 import { useDispatch, useSelector } from "react-redux";
 import "./index.css";
 import { createVideogame, getGenres, getPlatforms } from "../../redux/actions";
+import Loading from "../Loading";
 
 const Create = () => {
 	const [data, setData] = useState({
@@ -32,7 +33,6 @@ const Create = () => {
 			await dispatch(getGenres());
 			dispatch(getPlatforms());
 		}
-		console.log(games.genres.length);
 		if (!games.genres.length) fetchdata();
 	}, [dispatch, games]);
 
@@ -148,111 +148,112 @@ const Create = () => {
 	function handleSubmit(e) {
 		e.preventDefault();
 		let i = 0;
-		if(data.name === "") i++
-		if(data.description === "") i++
-		if(data.released === "") i++
-		if(data.rating === 0) i++
-		if(data.genres.length < 1) i++
-		if(data.platforms.length < 1) i++
+		if (data.name === "") i++;
+		if (data.description === "") i++;
+		if (data.released === "") i++;
+		if (data.rating === 0) i++;
+		if (data.genres.length < 1) i++;
+		if (data.platforms.length < 1) i++;
 		for (const err in error) {
-			console.log(error[err])
 			if (error[err] !== "") i++;
 		}
 		if (i > 0) alert("verify fields");
 		else {
-			dispatch(createVideogame(data))
-			alert("Entry created successfully")
+			dispatch(createVideogame(data));
 		}
 	}
 
 	return (
 		//poner error e input en un solo div?
 		<div className="create-container">
-			Please fill all fields
-			<form onSubmit={handleSubmit}>
-				<div className="error-container">
-					{error.name && <span>{error.name}</span>}
-				</div>
-				<div className="input-container">
-					<label>
-						name:{" "}
-						<input type="text" name="name" onChange={validateName} />
-					</label>
-				</div>
-				<div className="error-container">
-					{error.released && <span>{error.released}</span>}
-				</div>
-				<div className="input-container">
-					<label>
-						Date released:{" "}
-						<input
-							type="date"
-							name="released"
-							onChange={validateDate}
-						/>
-					</label>
-				</div>
-				<div className="error-container">
-					{error.rating && <span>{error.rating}</span>}
-				</div>
-				<div className="input-container">
-					<label>
-						Rating:{" "}
-						<input
-							type="number"
-							step={0.01}
-							max={5}
-							min={1}
-							name="rating"
-							onChange={validateRating}
-						/>
-					</label>
-				</div>
-				<div className="error-container">
-					{error.description && <span>{error.description}</span>}
-				</div>
-				<div className="input-container">
-					<label>
-						Description:{" "}
-						<textarea
-							type="text"
-							name="description"
-							onChange={validateDescription}
-						/>
-					</label>
-				</div>
-				<div className="Genres-container">
-					<h2>Select the genres that apply</h2>
-					{games.genres.length &&
-						games.genres.map((genres) => (
-							<div key={genres}>
+			{!games.genres.length && !games.genres.length ? (
+				<>
+					<Loading />
+				</>
+			) : (
+				<>
+					Please fill all fields
+					<form onSubmit={handleSubmit}>
+						<div className="error-container">
+							{error.name && <span>{error.name}</span>}
+						</div>
+						<div className="input-container">
+							<label>
+								name: <input type="text" name="name" onChange={validateName} />
+							</label>
+						</div>
+						<div className="error-container">
+							{error.released && <span>{error.released}</span>}
+						</div>
+						<div className="input-container">
+							<label>
+								Date released:{" "}
+								<input type="date" name="released" onChange={validateDate} />
+							</label>
+						</div>
+						<div className="error-container">
+							{error.rating && <span>{error.rating}</span>}
+						</div>
+						<div className="input-container">
+							<label>
+								Rating:{" "}
 								<input
-									type="checkbox"
-									name="genres"
-									value={genres}
-									onChange={handleGenres}
+									type="number"
+									step={0.01}
+									max={5}
+									min={1}
+									name="rating"
+									onChange={validateRating}
 								/>
-								<span>{genres}</span>
-							</div>
-						))}
-				</div>
-				<div className="Platforms-container">
-					<h2>Select the platforms that apply</h2>
-					{games.platforms.length &&
-						games.platforms.map((platform) => (
-							<div key={platform}>
-								<input
-									type="checkbox"
-									name="platforms"
-									value={platform}
-									onChange={handlePlatforms}
+							</label>
+						</div>
+						<div className="error-container">
+							{error.description && <span>{error.description}</span>}
+						</div>
+						<div className="input-container">
+							<label>
+								Description:{" "}
+								<textarea
+									type="text"
+									name="description"
+									onChange={validateDescription}
 								/>
-								<span>{platform}</span>
-							</div>
-						))}
-				</div>
-				<button type="submit">Enviar</button>
-			</form>
+							</label>
+						</div>
+						<div className="Genres-container">
+							<h2>Select the genres that apply</h2>
+							{games.genres.length &&
+								games.genres.map((genres) => (
+									<div key={genres}>
+										<input
+											type="checkbox"
+											name="genres"
+											value={genres}
+											onChange={handleGenres}
+										/>
+										<span>{genres}</span>
+									</div>
+								))}
+						</div>
+						<div className="Platforms-container">
+							<h2>Select the platforms that apply</h2>
+							{games.platforms.length &&
+								games.platforms.map((platform) => (
+									<div key={platform}>
+										<input
+											type="checkbox"
+											name="platforms"
+											value={platform}
+											onChange={handlePlatforms}
+										/>
+										<span>{platform}</span>
+									</div>
+								))}
+						</div>
+						<button type="submit">Enviar</button>
+					</form>
+				</>
+			)}
 		</div>
 	);
 };

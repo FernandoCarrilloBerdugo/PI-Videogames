@@ -46,7 +46,7 @@ export default function reducer(state = initialState, { type, payload }) {
 		case CREATE_VIDEOGAME:
 			return {
 				...state,
-				videogames: state.videogames.push(payload)
+				videogames: [...state.videogames, payload]
 			}
 
     case CLEAR_PAGE:
