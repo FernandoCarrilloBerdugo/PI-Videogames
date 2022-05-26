@@ -53,7 +53,7 @@ export function getPlatforms() {
 
 export function createVideogame(input) {
 	return async (dispatch) => {
-		const { data } = await axios.post("/videogame", input);
+		const { data } = await axios.post("http://localhost:3001/videogame", input);
 		dispatch({ type: CREATE_VIDEOGAME, payload: data });
 	};
 }

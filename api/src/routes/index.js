@@ -90,6 +90,7 @@ router.get("/genres", async (req, res) => {
 router.post("/videogame", async (req, res) => {
 	try {
 		const { name, description, released, rating, genres, platforms } = req.body;
+		console.log(genres)
 		const foundGame = await Videogame.findOne({ where: { name } });
 		if (foundGame) throw new Error("Game already exist");
 		if (
@@ -97,8 +98,8 @@ router.post("/videogame", async (req, res) => {
 			!description ||
 			!released ||
 			!rating ||
-			!genres.length === 0 ||
-			!platforms.length === 0
+			!genres.length ||
+			!platforms.length
 		) {
 			throw new Error("faltan datos obligatorios");
 		} else {

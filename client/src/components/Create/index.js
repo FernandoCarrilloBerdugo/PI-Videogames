@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { validDate } from "./regexp";
 import { useDispatch, useSelector } from "react-redux";
 import "./index.css";
-import { getGenres, getPlatforms } from "../../redux/actions";
+import { createVideogame, getGenres, getPlatforms } from "../../redux/actions";
 
 const Create = () => {
 	const [data, setData] = useState({
@@ -10,24 +10,31 @@ const Create = () => {
 		description: "",
 		released: "",
 		rating: 0,
-		genre: [],
+		genres: [],
 		platforms: [],
 	});
 
-	const [error, setError] = useState({});
+	const [error, setError] = useState({
+		name: "",
+		description: "",
+		released: "",
+		rating: "",
+		genres: "",
+		platforms: "",
+	});
 
 	const dispatch = useDispatch();
 
-	const games = useSelector(state => state)
+	const games = useSelector((state) => state);
 
-	useEffect(()=>{
-		async function fetchdata(){
-		await dispatch(getGenres())
-	  dispatch(getPlatforms())
+	useEffect(() => {
+		async function fetchdata() {
+			await dispatch(getGenres());
+			dispatch(getPlatforms());
 		}
-		console.log(games.genres.length)
-		if(!games.genres.length) fetchdata()
-	},[dispatch, games])
+		console.log(games.genres.length);
+		if (!games.genres.length) fetchdata();
+	}, [dispatch, games]);
 
 	function validateName(e) {
 		if (e.target.value.trim() === "") {
@@ -75,7 +82,7 @@ const Create = () => {
 
 	//Debería validar la descripción?
 	function validateDescription(e) {
-		if(e.target.value.trim() === "") {
+		if (e.target.value.trim() === "") {
 			setError({
 				...error,
 				[e.target.name]: "Cannot be empty",
@@ -93,10 +100,10 @@ const Create = () => {
 	}
 
 	function validateRating(e) {
-		if(e.target.value < 0 || e.target.value > 5) {
+		if (e.target.value < 1 || e.target.value > 5) {
 			setError({
 				...error,
-				[e.target.name]: "Rating must be a value between 0-5",
+				[e.target.name]: "Rating must be a value between 1-5",
 			});
 		} else {
 			setError({
@@ -111,43 +118,65 @@ const Create = () => {
 	}
 
 	function handleGenres(e) {
-		let updateGenres = [...data.genre]
-		if(e.target.checked) {
-			updateGenres.push(e.target.value)
+		let updateGenres = [...data.genres];
+		if (e.target.checked) {
+			updateGenres.push(e.target.value);
 		} else {
-			updateGenres = updateGenres.filter(genre => genre !== e.target.value)
+			updateGenres = updateGenres.filter((genres) => genres !== e.target.value);
 		}
 		setData({
 			...data,
-			[e.target.name]: updateGenres
-		})
+			[e.target.name]: updateGenres,
+		});
 	}
 
 	function handlePlatforms(e) {
-		let updatePlatforms = [...data.platforms]
-		if(e.target.checked) {
-			updatePlatforms.push(e.target.value)
+		let updatePlatforms = [...data.platforms];
+		if (e.target.checked) {
+			updatePlatforms.push(e.target.value);
 		} else {
-			updatePlatforms = updatePlatforms.filter(platform => platform !== e.target.value)
+			updatePlatforms = updatePlatforms.filter(
+				(platform) => platform !== e.target.value
+			);
 		}
 		setData({
 			...data,
-			[e.target.name]: updatePlatforms
-		})
+			[e.target.name]: updatePlatforms,
+		});
+	}
+
+	function handleSubmit(e) {
+		e.preventDefault();
+		let i = 0;
+		if(data.name === "") i++
+		if(data.description === "") i++
+		if(data.released === "") i++
+		if(data.rating === 0) i++
+		if(data.genres.length < 1) i++
+		if(data.platforms.length < 1) i++
+		for (const err in error) {
+			console.log(error[err])
+			if (error[err] !== "") i++;
+		}
+		if (i > 0) alert("verify fields");
+		else {
+			dispatch(createVideogame(data))
+			alert("Entry created successfully")
+		}
 	}
 
 	return (
 		//poner error e input en un solo div?
 		<div className="create-container">
 			Please fill all fields
-			<form>
+			<form onSubmit={handleSubmit}>
 				<div className="error-container">
 					{error.name && <span>{error.name}</span>}
 				</div>
 				<div className="input-container">
 					<label>
 						name:{" "}
-						<input type="text" name="name" onChange={(e) => validateName(e)} />
+						<input type="text" name="name" onChange={validateName} />
 					</label>
 				</div>
 				<div className="error-container">
@@ -159,7 +188,7 @@ const Create = () => {
 						<input
 							type="date"
 							name="released"
-							onChange={(e) => validateDate(e)}
+							onChange={validateDate}
 						/>
 					</label>
 				</div>
@@ -173,9 +202,9 @@ const Create = () => {
 							type="number"
 							step={0.01}
 							max={5}
-							min={0}
+							min={1}
 							name="rating"
-							onChange={(e) => validateRating(e)}
+							onChange={validateRating}
 						/>
 					</label>
 				</div>
@@ -188,22 +217,41 @@ const Create = () => {
 						<textarea
 							type="text"
 							name="description"
-							onChange={(e) => validateDescription(e)}
+							onChange={validateDescription}
 						/>
 					</label>
 				</div>
 				<div className="Genres-container">
 					<h2>Select the genres that apply</h2>
-					{games.genres.length && games.genres.map(genre => (
-						<div key={genre}><input type="checkbox" name="genre" value={genre} onChange={handleGenres}/><span>{genre}</span></div>
-					))}
+					{games.genres.length &&
+						games.genres.map((genres) => (
+							<div key={genres}>
+								<input
+									type="checkbox"
+									name="genres"
+									value={genres}
+									onChange={handleGenres}
+								/>
+								<span>{genres}</span>
+							</div>
+						))}
 				</div>
 				<div className="Platforms-container">
 					<h2>Select the platforms that apply</h2>
-					{games.platforms.length && games.platforms.map(platform => (
-						<div key={platform}><input type="checkbox" name="platforms" value={platform} onChange={handlePlatforms}/><span>{platform}</span></div>
-					))}
+					{games.platforms.length &&
+						games.platforms.map((platform) => (
+							<div key={platform}>
+								<input
+									type="checkbox"
+									name="platforms"
+									value={platform}
+									onChange={handlePlatforms}
+								/>
+								<span>{platform}</span>
+							</div>
+						))}
 				</div>
+				<button type="submit">Enviar</button>
 			</form>
 		</div>
 	);

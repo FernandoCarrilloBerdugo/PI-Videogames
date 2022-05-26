@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getVideogames } from "../../redux/actions";
 import Card from "../Card";
@@ -8,16 +8,22 @@ import "./index.css";
 const Home = () => {
 	const dispatch = useDispatch();
 
+	const [loading, setLoading] = useState(true)
+
 	let games = useSelector((state) => state);
 
 	useEffect(() => {
 		!games.videogames.length && dispatch(getVideogames());
-		console.log(games);
-	});
+		if(games.videogames.length) setLoading(false)
+		return () => {
+			setLoading(!loading)
+		}
+		 // eslint-disable-next-line
+	},[games.videogames]);
 
 	return (
 		<div className="home-container">
-			{games.loading === false ? (
+			{loading === false ? (
 				<div className="cards-container">
 					{games &&
 						games.videogames.map((game) => (
