@@ -1,5 +1,6 @@
 import {
 	GET_VIDEOGAMES,
+	SEARCH_GAMES,
 	GET_VIDEOGAME_DETAIL,
 	GET_GENRES,
 	CREATE_VIDEOGAME,
@@ -15,6 +16,14 @@ export function getVideogames() {
 		const { data } = await axios.get("http://localhost:3001/videogames");
 		dispatch({ type: GET_VIDEOGAMES, payload: data });
 	};
+}
+
+export function searchGames(query) {
+	return async(dispatch) => {
+		console.log("searching games in API");
+		const {data} = await axios.get(`http://localhost:3001/videogames?name=${query}`)
+		dispatch({ type: SEARCH_GAMES, payload: data})
+	}
 }
 
 export function getVideogameDetail(id) {

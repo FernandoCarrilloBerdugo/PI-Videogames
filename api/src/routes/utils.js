@@ -17,6 +17,7 @@ const format = (data, type) => {
 		query: function (data) {
 			for (let i = 0; i < data.length; i++) {
 				formatedData.push({
+					id: data[i].id,
 					image: data[i].background_image,
 					name: data[i].name,
 					genres: data[i].genres.map((genre) => genre.name),

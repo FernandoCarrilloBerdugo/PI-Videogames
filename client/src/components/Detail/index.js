@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { clearPage, getVideogameDetail } from "../../redux/actions";
 import Loading from "../Loading";
+import img from "./default.jpg";
 import "./index.css";
 
 const Detail = () => {
@@ -48,7 +49,7 @@ const Detail = () => {
 						</span>
 					</div>
 					<div>
-						<img className="game-image" src={game.image} alt={game.name} />
+						<img className="game-image" src={game.image ? game.image : img} alt={game.name} />
 					</div>
 					<div className="genres">
 						<span>

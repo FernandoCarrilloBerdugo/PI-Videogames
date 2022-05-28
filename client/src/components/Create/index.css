@@ -1,3 +1,23 @@
+textarea{
+  resize: none;
+}
+
+.create-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgb(0, 0, 0);
+  color: white;
+  height: 100%;
+  width: 100%;
+  /* 1 pixel black shadow to left, top, right and bottom */
+ text-shadow: -1px 0 rgb(3, 12, 110), 0 1px rgb(3, 12, 110), 1px 0 rgb(3, 12, 110), 0 -1px rgb(3, 12, 110);
+}
+
+.field-container{
+  margin: 25px;
+}
+
 .input-container{
   margin:0.4rem 0;
 }
@@ -6,6 +26,36 @@
   color:red
 }
 
-textarea{
-  resize: none;
+.create-title{
+  width: 100%;
+  margin-top: 10px;
+}
+
+.genre-selection{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-around;
+  width: 40%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.platform-selection {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  width: 40%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.checkbox-title{
+  font-weight: bold;
+  width: 100%;
+}
+
+.checkbox-element{
+  padding: 5px;
 }

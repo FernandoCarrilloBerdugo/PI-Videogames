@@ -5,6 +5,7 @@
 	background-color: #05002b;
 	text-align: center;
 	margin: 0;
+	width: auto;
 }
 .navbar-element {
 	display: inline-block;
