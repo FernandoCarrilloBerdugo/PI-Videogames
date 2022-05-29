@@ -13,6 +13,7 @@ import {
 	SORT_AZ,
 	SORT_ZA,
 	SORT_RATING,
+	PAGING,
 } from "../actions/actionTypes";
 
 const initialState = {
@@ -23,6 +24,7 @@ const initialState = {
 	platforms: [],
 	filtered: "",
 	orderedVideogames: [],
+	paging: [],
 };
 
 export default function reducer(state = initialState, { type, payload }) {
@@ -75,17 +77,25 @@ export default function reducer(state = initialState, { type, payload }) {
 			return {
 				...state,
 				filtered: state.search.length
-					? (state.filtered.length && state.filtered.filter(game => typeof(game.id) === "string")) || state.search.filter(game => typeof(game.id) === "string")
-					: (state.filtered.length && state.filtered.filter(game => typeof(game.id) === "string")) || state.videogames.filter(game => typeof(game.id) === "string")
-			}
+					? (state.filtered.length &&
+							state.filtered.filter((game) => typeof game.id === "string")) ||
+					  state.search.filter((game) => typeof game.id === "string")
+					: (state.filtered.length &&
+							state.filtered.filter((game) => typeof game.id === "string")) ||
+					  state.videogames.filter((game) => typeof game.id === "string"),
+			};
 
 		case FILTER_SERVER:
 			return {
 				...state,
 				filtered: state.search.length
-					? (state.filtered.length && state.filtered.filter(game => typeof(game.id) === "number")) || state.search.filter(game => typeof(game.id) === "number")
-					: (state.filtered.length && state.filtered.filter(game => typeof(game.id) === "number")) || state.videogames.filter(game => typeof(game.id) === "number")
-			}
+					? (state.filtered.length &&
+							state.filtered.filter((game) => typeof game.id === "number")) ||
+					  state.search.filter((game) => typeof game.id === "number")
+					: (state.filtered.length &&
+							state.filtered.filter((game) => typeof game.id === "number")) ||
+					  state.videogames.filter((game) => typeof game.id === "number"),
+			};
 
 		case CLEAR_FILTER:
 			return {
@@ -103,64 +113,93 @@ export default function reducer(state = initialState, { type, payload }) {
 		case SORT_AZ:
 			return {
 				...state,
-				videogames: state.videogames.sort((a,b) => {
-					if(a.name.toLowerCase() < b.name.toLowerCase()) return -1
-					if(a.name.toLowerCase() > b.name.toLowerCase()) return 1
-					else return 0
+				videogames: state.videogames.sort((a, b) => {
+					if (a.name.toLowerCase() < b.name.toLowerCase()) return -1;
+					if (a.name.toLowerCase() > b.name.toLowerCase()) return 1;
+					else return 0;
 				}),
-				search: state.search.length ? state.search.sort((a,b) => {
-					if(a.name.toLowerCase() < b.name.toLowerCase()) return -1
-					if(a.name.toLowerCase() > b.name.toLowerCase()) return 1
-					else return 0
-				}) : state.search,
-				filtered: state.filtered.length ? state.filtered.sort((a,b) => {
-					if(a.name.toLowerCase() < b.name.toLowerCase()) return -1
-					if(a.name.toLowerCase() > b.name.toLowerCase()) return 1
-					else return 0
-				}) : state.filtered
-			}
+				search: state.search.length
+					? state.search.sort((a, b) => {
+							if (a.name.toLowerCase() < b.name.toLowerCase()) return -1;
+							if (a.name.toLowerCase() > b.name.toLowerCase()) return 1;
+							else return 0;
+					  })
+					: state.search,
+				filtered: state.filtered.length
+					? state.filtered.sort((a, b) => {
+							if (a.name.toLowerCase() < b.name.toLowerCase()) return -1;
+							if (a.name.toLowerCase() > b.name.toLowerCase()) return 1;
+							else return 0;
+					  })
+					: state.filtered,
+			};
 
 		case SORT_ZA:
 			return {
 				...state,
-				videogames: state.videogames.sort((a,b) => {
-					if(a.name.toLowerCase() < b.name.toLowerCase()) return 1
-					if(a.name.toLowerCase() > b.name.toLowerCase()) return -1
-					else return 0
+				videogames: state.videogames.sort((a, b) => {
+					if (a.name.toLowerCase() < b.name.toLowerCase()) return 1;
+					if (a.name.toLowerCase() > b.name.toLowerCase()) return -1;
+					else return 0;
 				}),
-				search: state.search.length ? state.search.sort((a,b) => {
-					if(a.name.toLowerCase() < b.name.toLowerCase()) return 1
-					if(a.name.toLowerCase() > b.name.toLowerCase()) return -1
-					else return 0
-				}) : state.search,
-				filtered: state.filtered.length ? state.filtered.sort((a,b) => {
-					if(a.name.toLowerCase() < b.name.toLowerCase()) return 1
-					if(a.name.toLowerCase() > b.name.toLowerCase()) return -1
-					else return 0
-				}) : state.filtered
-			}
-		
+				search: state.search.length
+					? state.search.sort((a, b) => {
+							if (a.name.toLowerCase() < b.name.toLowerCase()) return 1;
+							if (a.name.toLowerCase() > b.name.toLowerCase()) return -1;
+							else return 0;
+					  })
+					: state.search,
+				filtered: state.filtered.length
+					? state.filtered.sort((a, b) => {
+							if (a.name.toLowerCase() < b.name.toLowerCase()) return 1;
+							if (a.name.toLowerCase() > b.name.toLowerCase()) return -1;
+							else return 0;
+					  })
+					: state.filtered,
+			};
 
-		case SORT_RATING: 
+		case SORT_RATING:
 			return {
 				...state,
-				videogames: state.videogames.sort((a,b) => {
-					if(a.rating < b.rating) return 1
-					if(a.rating > b.rating) return -1
-					else return 0
+				videogames: state.videogames.sort((a, b) => {
+					if (a.rating < b.rating) return 1;
+					if (a.rating > b.rating) return -1;
+					else return 0;
 				}),
-				search: state.search.length ? state.search.sort((a,b) => {
-					if(a.rating < b.rating) return 1
-					if(a.rating > b.rating) return -1
-					else return 0
-				}) : state.search,
-				filtered: state.filtered.length ? state.filtered.sort((a,b) => {
-					if(a.rating < b.rating) return 1
-					if(a.rating > b.rating) return -1
-					else return 0
-				}) : state.filtered
+				search: state.search.length
+					? state.search.sort((a, b) => {
+							if (a.rating < b.rating) return 1;
+							if (a.rating > b.rating) return -1;
+							else return 0;
+					  })
+					: state.search,
+				filtered: state.filtered.length
+					? state.filtered.sort((a, b) => {
+							if (a.rating < b.rating) return 1;
+							if (a.rating > b.rating) return -1;
+							else return 0;
+					  })
+					: state.filtered,
+			};
+
+		case PAGING:
+			if (state.filtered.length) {
+				return {
+					...state,
+					paging: state.filtered.slice(payload, payload + 15),
+				};
+			} else if (state.search.length) {
+				return {
+					...state,
+					paging: state.search.slice(payload, payload + 15),
+				};
+			} else {
+				return {
+					...state,
+					paging: state.videogames.slice(payload, payload + 15),
+				};
 			}
-		
+
 		default:
 			return state;
 	}

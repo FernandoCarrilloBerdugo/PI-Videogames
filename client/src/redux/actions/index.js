@@ -13,6 +13,7 @@ import {
 	SORT_AZ,
 	SORT_ZA,
 	SORT_RATING,
+	PAGING,
 } from "./actionTypes";
 import axios from "axios";
 
@@ -101,8 +102,17 @@ export function clearPage() {
 
 export function sort(sortType) {
 	let type = "";
-	if(sortType === "AZ")  type = SORT_AZ
-	else if(sortType === "ZA") type = SORT_ZA
-	else type = SORT_RATING
-	return { type }
+	if (sortType === "AZ") type = SORT_AZ;
+	else if (sortType === "ZA") type = SORT_ZA;
+	else type = SORT_RATING;
+	return { type };
+}
+
+export function paging(page) {
+	return dispatch => {
+		let startIndex;
+		if ((page === 1)) startIndex = 0;
+		else startIndex = 15 * (page - 1);
+		dispatch({type: PAGING, payload: startIndex})
+	}
 }

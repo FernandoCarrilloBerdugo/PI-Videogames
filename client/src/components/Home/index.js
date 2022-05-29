@@ -11,6 +11,7 @@ import {
 import Card from "../Card";
 import FilterByGenre from "../Filters";
 import Loading from "../Loading";
+import Paging from "../Paging";
 import SearchBar from "../SearchBar";
 import Sort from "../Sort";
 import "./index.css";
@@ -56,6 +57,7 @@ const Home = () => {
 						<FilterByGenre />
 					</div>
 					<Sort />
+					<Paging />
 					{search || games.search.length ? (
 						<div className="cards-container">
 							{games.filtered && games.search
