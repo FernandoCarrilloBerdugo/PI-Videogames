@@ -6,7 +6,10 @@ import {
 	CREATE_VIDEOGAME,
 	CLEAR_PAGE,
 	GET_PLATFORMS,
-	// FILTER,
+	FILTER,
+	FILTER_SERVER,
+	CLEAR_FILTER,
+	FILTER_USER,
 } from "./actionTypes";
 import axios from "axios";
 
@@ -19,11 +22,13 @@ export function getVideogames() {
 }
 
 export function searchGames(query) {
-	return async(dispatch) => {
+	return async (dispatch) => {
 		console.log("searching games in API");
-		const {data} = await axios.get(`http://localhost:3001/videogames?name=${query}`)
-		dispatch({ type: SEARCH_GAMES, payload: data})
-	}
+		const { data } = await axios.get(
+			`http://localhost:3001/videogames?name=${query}`
+		);
+		dispatch({ type: SEARCH_GAMES, payload: data });
+	};
 }
 
 export function getVideogameDetail(id) {
@@ -62,13 +67,29 @@ export function getPlatforms() {
 
 export function createVideogame(input) {
 	return async (dispatch) => {
-			const { data } = await axios.post("http://localhost:3001/videogame",input);
-			if (data.name) {
-				dispatch({ type: CREATE_VIDEOGAME, payload: data });
-				window.alert("game was created succesfully")
-			}
-			else window.alert("Game with that name already exist in the database")
+		const { data } = await axios.post("http://localhost:3001/videogame", input);
+		if (data.name) {
+			dispatch({ type: CREATE_VIDEOGAME, payload: data });
+			window.alert("game was created succesfully");
+		} else window.alert("Game with that name already exist in the database");
 	};
+}
+
+export function filterByGenre(filter) {
+	return (dispatch) => {
+		dispatch({ type: FILTER, payload: filter });
+	};
+}
+
+export function filterCreated(filter) {
+	return (dispatch) => {
+		const type = filter === "User" ? FILTER_USER : FILTER_SERVER;
+		dispatch({ type });
+	};
+}
+
+export function clearFilter() {
+	return { type: CLEAR_FILTER };
 }
 
 export function clearPage() {

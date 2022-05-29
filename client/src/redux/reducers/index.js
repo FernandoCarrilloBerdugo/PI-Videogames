@@ -6,16 +6,19 @@ import {
 	GET_PLATFORMS,
 	CREATE_VIDEOGAME,
 	CLEAR_PAGE,
-	// FILTER,
+	FILTER,
+	FILTER_SERVER,
+	CLEAR_FILTER,
+	FILTER_USER,
 } from "../actions/actionTypes";
 
 const initialState = {
 	videogames: [],
 	search: [],
-	videogameDetail: {},
+	videogameDetail: [],
 	genres: [],
 	platforms: [],
-	filteredVideogames: [],
+	filtered: "",
 	orderedVideogames: [],
 };
 
@@ -30,8 +33,8 @@ export default function reducer(state = initialState, { type, payload }) {
 		case SEARCH_GAMES:
 			return {
 				...state,
-				search: payload
-			}
+				search: payload,
+			};
 
 		case GET_VIDEOGAME_DETAIL:
 			return {
@@ -55,6 +58,36 @@ export default function reducer(state = initialState, { type, payload }) {
 			return {
 				...state,
 				videogames: [...state.videogames, payload],
+			};
+
+		case FILTER:
+			return {
+				...state,
+				filtered: state.search.length
+					? state.search.filter((game) => game.genres.includes(payload))
+					: state.videogames.filter((game) => game.genres.includes(payload)),
+			};
+
+		case FILTER_USER:
+			return {
+				...state,
+				filtered: state.search.length
+					? (state.filtered.length && state.filtered.filter(game => typeof(game.id) === "string")) || state.search.filter(game => typeof(game.id) === "string")
+					: (state.filtered.length && state.filtered.filter(game => typeof(game.id) === "string")) || state.videogames.filter(game => typeof(game.id) === "string")
+			}
+
+		case FILTER_SERVER:
+			return {
+				...state,
+				filtered: state.search.length
+					? (state.filtered.length && state.filtered.filter(game => typeof(game.id) === "number")) || state.search.filter(game => typeof(game.id) === "number")
+					: (state.filtered.length && state.filtered.filter(game => typeof(game.id) === "number")) || state.videogames.filter(game => typeof(game.id) === "number")
+			}
+
+		case CLEAR_FILTER:
+			return {
+				...state,
+				filtered: "",
 			};
 
 		case CLEAR_PAGE:

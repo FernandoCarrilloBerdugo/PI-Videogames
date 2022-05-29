@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory, useLocation } from "react-router";
-import { searchGames, clearPage } from "../../redux/actions";
+import { searchGames } from "../../redux/actions";
 
 export default function SearchBar() {
 	const [name, setName] = useState("");
