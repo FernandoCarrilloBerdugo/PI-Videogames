@@ -9,6 +9,7 @@ const format = (data, type) => {
 					id: game.id,
 					image: game.background_image,
 					name: game.name,
+					rating: game.rating,
 					genres: game.genres.map((genre) => genre.name),
 				};
 			});
@@ -21,6 +22,7 @@ const format = (data, type) => {
 					image: data[i].background_image,
 					name: data[i].name,
 					genres: data[i].genres.map((genre) => genre.name),
+					rating: data[i].rating,
 				});
 				if (formatedData.length === 15) return formatedData;
 			}

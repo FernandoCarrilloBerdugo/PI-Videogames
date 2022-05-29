@@ -10,6 +10,9 @@ import {
 	FILTER_SERVER,
 	CLEAR_FILTER,
 	FILTER_USER,
+	SORT_AZ,
+	SORT_ZA,
+	SORT_RATING,
 } from "./actionTypes";
 import axios from "axios";
 
@@ -94,4 +97,12 @@ export function clearFilter() {
 
 export function clearPage() {
 	return { type: CLEAR_PAGE };
+}
+
+export function sort(sortType) {
+	let type = "";
+	if(sortType === "AZ")  type = SORT_AZ
+	else if(sortType === "ZA") type = SORT_ZA
+	else type = SORT_RATING
+	return { type }
 }

@@ -10,6 +10,9 @@ import {
 	FILTER_SERVER,
 	CLEAR_FILTER,
 	FILTER_USER,
+	SORT_AZ,
+	SORT_ZA,
+	SORT_RATING,
 } from "../actions/actionTypes";
 
 const initialState = {
@@ -96,6 +99,68 @@ export default function reducer(state = initialState, { type, payload }) {
 				videogameDetail: [],
 				search: [],
 			};
+
+		case SORT_AZ:
+			return {
+				...state,
+				videogames: state.videogames.sort((a,b) => {
+					if(a.name.toLowerCase() < b.name.toLowerCase()) return -1
+					if(a.name.toLowerCase() > b.name.toLowerCase()) return 1
+					else return 0
+				}),
+				search: state.search.length ? state.search.sort((a,b) => {
+					if(a.name.toLowerCase() < b.name.toLowerCase()) return -1
+					if(a.name.toLowerCase() > b.name.toLowerCase()) return 1
+					else return 0
+				}) : state.search,
+				filtered: state.filtered.length ? state.filtered.sort((a,b) => {
+					if(a.name.toLowerCase() < b.name.toLowerCase()) return -1
+					if(a.name.toLowerCase() > b.name.toLowerCase()) return 1
+					else return 0
+				}) : state.filtered
+			}
+
+		case SORT_ZA:
+			return {
+				...state,
+				videogames: state.videogames.sort((a,b) => {
+					if(a.name.toLowerCase() < b.name.toLowerCase()) return 1
+					if(a.name.toLowerCase() > b.name.toLowerCase()) return -1
+					else return 0
+				}),
+				search: state.search.length ? state.search.sort((a,b) => {
+					if(a.name.toLowerCase() < b.name.toLowerCase()) return 1
+					if(a.name.toLowerCase() > b.name.toLowerCase()) return -1
+					else return 0
+				}) : state.search,
+				filtered: state.filtered.length ? state.filtered.sort((a,b) => {
+					if(a.name.toLowerCase() < b.name.toLowerCase()) return 1
+					if(a.name.toLowerCase() > b.name.toLowerCase()) return -1
+					else return 0
+				}) : state.filtered
+			}
+		
+
+		case SORT_RATING: 
+			return {
+				...state,
+				videogames: state.videogames.sort((a,b) => {
+					if(a.rating < b.rating) return 1
+					if(a.rating > b.rating) return -1
+					else return 0
+				}),
+				search: state.search.length ? state.search.sort((a,b) => {
+					if(a.rating < b.rating) return 1
+					if(a.rating > b.rating) return -1
+					else return 0
+				}) : state.search,
+				filtered: state.filtered.length ? state.filtered.sort((a,b) => {
+					if(a.rating < b.rating) return 1
+					if(a.rating > b.rating) return -1
+					else return 0
+				}) : state.filtered
+			}
+		
 		default:
 			return state;
 	}
