@@ -1,8 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import {
-	clearPage,
 	getGenres,
 	getPlatforms,
 	getVideogames,
@@ -24,9 +23,12 @@ export default function Home() {
 
 	const { search } = useLocation();
 
+	const [current,setCurrent] = useState("")
+
 	useEffect(() => {});
 
 	useEffect(() => {
+		console.log("montar por videogames")
 		!games.genres.length && dispatch(getGenres());
 		!games.platforms.length && dispatch(getPlatforms());
 		!games.videogames.length && dispatch(getVideogames());
@@ -37,13 +39,9 @@ export default function Home() {
 
 	useEffect(() => {
 		games.search.length && dispatch(paging(1));
-		return () => {
-			games.search.length && dispatch(clearPage());
-			search && dispatch(paging(1));
-			search && dispatch(sort("Rating"))
-		};
+		current !== search && setCurrent(search)
 		// eslint-disable-next-line
-	}, [games.search, search]);
+	}, [games.search]);
 
 	return (
 		<div className="home-container">

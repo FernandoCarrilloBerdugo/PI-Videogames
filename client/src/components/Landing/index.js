@@ -11,11 +11,12 @@ const Landing = () => {
 					The best web app to get info about all videogames
 				</h3>
 			</div>
-			<Link to="/videogames" className="link">
 				<div className="landingButton">
-					<h2>Enter</h2>
-				</div>
+			<Link to="/videogames" className="link">
+					{/* <h2>Enter</h2> */}
+					<button className="landing-button">Enter</button>
 			</Link>
+				</div>
 		</div>
 	);
 };
