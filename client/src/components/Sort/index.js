@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { sort } from "../../redux/actions";
+import { useDispatch, useSelector } from "react-redux";
+import { sort, paging } from "../../redux/actions";
 
 export default function Sort() {
   
@@ -8,10 +8,13 @@ export default function Sort() {
 
   const dispatch = useDispatch()
 
+  // const paging = useSelector(state=>state.paging)
+
   useEffect(() => {
     dispatch(sort(sorting))
+    dispatch(paging(1))
     // eslint-disable-next-line
-  }, [sorting])
+  }, [sorting /*paging*/])
 
   const handleChange = (e) => {
     setSorting(e.target.value)

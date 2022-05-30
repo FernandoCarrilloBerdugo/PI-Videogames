@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { validDate } from "./validateDate";
 import { useDispatch, useSelector } from "react-redux";
 import "./index.css";
-import { createVideogame, getGenres, getPlatforms } from "../../redux/actions";
+import { createVideogame } from "../../redux/actions";
 import Loading from "../Loading";
 
 const Create = () => {
@@ -27,11 +27,6 @@ const Create = () => {
 	const dispatch = useDispatch();
 
 	const games = useSelector((state) => state);
-
-	useEffect(() => {
-		dispatch(getGenres());
-		dispatch(getPlatforms());
-	}, []);
 
 	function validateName(e) {
 		if (e.target.value.trim() === "") {

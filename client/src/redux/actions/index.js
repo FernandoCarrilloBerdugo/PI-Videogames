@@ -93,18 +93,6 @@ export function filterCreated(filter) {
 	};
 }
 
-export function clearFilter() {
-	return { type: CLEAR_FILTER };
-}
-
-export function clearPage() {
-	return { type: CLEAR_PAGE };
-}
-
-export function clearSearch() {
-	return {type: CLEAR_SEARCH}
-}
-
 export function sort(sortType) {
 	let type = "";
 	if (sortType === "AZ") type = SORT_AZ;
@@ -120,4 +108,16 @@ export function paging(page) {
 		else startIndex = 15 * (page - 1);
 		dispatch({type: PAGING, payload: startIndex})
 	}
+}
+
+export function clearFilter() {
+	return { type: CLEAR_FILTER };
+}
+
+export function clearPage() {
+	return { type: CLEAR_PAGE };
+}
+
+export function clearSearch() {
+	return {type: CLEAR_SEARCH}
 }
