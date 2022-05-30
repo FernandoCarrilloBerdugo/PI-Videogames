@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { clearFilter, clearPage } from "../../redux/actions";
+import { clearFilter, clearSearch, paging } from "../../redux/actions";
 import './index.css'
 
 const NavBar = () => {
@@ -9,8 +9,9 @@ const NavBar = () => {
   const dispatch = useDispatch()
 
   const handleClick = () => {
-    dispatch(clearPage())
+    dispatch(clearSearch())
     dispatch(clearFilter())
+    dispatch(paging(1))
   }
 
   return (

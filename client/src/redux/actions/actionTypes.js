@@ -5,6 +5,7 @@ export const GET_GENRES = "GET_GENRES";
 export const GET_PLATFORMS = "GET_PLATFORMS";
 export const CREATE_VIDEOGAME = "CREATE_VIDEOGAME";
 export const CLEAR_PAGE = "CLEAR_PAGE";
+export const CLEAR_SEARCH = "CLEAR_SEARCH";
 export const FILTER = "FILTER";
 export const FILTER_USER = "FILTER_USER";
 export const FILTER_SERVER = "FILTER_SERVER";

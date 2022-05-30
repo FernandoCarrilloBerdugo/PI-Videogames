@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { paging } from "../../redux/actions";
 
 export default function Paging() {
+
   const games = useSelector(state => state)
 
   const dispatch = useDispatch()
@@ -36,7 +37,7 @@ export default function Paging() {
 
   return (
     <div>
-      {numberOfButtons.length
+      {(numberOfButtons.length && games.paging.length > 0)
       && numberOfButtons.map((element) => (
         <button key={element} value={element} onClick={handleChange}>{element}</button>
       ))

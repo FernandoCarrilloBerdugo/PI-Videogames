@@ -14,6 +14,7 @@ import {
 	SORT_ZA,
 	SORT_RATING,
 	PAGING,
+	CLEAR_SEARCH,
 } from "../actions/actionTypes";
 
 const initialState = {
@@ -74,28 +75,44 @@ export default function reducer(state = initialState, { type, payload }) {
 			};
 
 		case FILTER_USER:
-			return {
+			if (state.search.length) {
+				return {
+					...state,
+					filtered: state.filtered.length
+						? state.filtered.filter((game) => typeof game.id === "string")
+						: state.search.filter((game) => typeof game.id === "string"),
+				};
+			}
+			else if(state.filtered.length){
+				return {
+					...state,
+					filtered: state.filtered.filter((game) => typeof game.id === "string")
+				}
+			}
+			else return {
 				...state,
-				filtered: state.search.length
-					? (state.filtered.length &&
-							state.filtered.filter((game) => typeof game.id === "string")) ||
-					  state.search.filter((game) => typeof game.id === "string")
-					: (state.filtered.length &&
-							state.filtered.filter((game) => typeof game.id === "string")) ||
-					  state.videogames.filter((game) => typeof game.id === "string"),
-			};
+				filtered: state.videogames.filter((game) => typeof game.id === "string")
+			}
 
 		case FILTER_SERVER:
-			return {
+			if (state.search.length) {
+				return {
+					...state,
+					filtered: state.filtered.length
+						? state.filtered.filter((game) => typeof game.id === "number")
+						: state.search.filter((game) => typeof game.id === "number"),
+				};
+			}
+			else if(state.filtered.length){
+				return {
+					...state,
+					filtered: state.filtered.filter((game) => typeof game.id === "number")
+				}
+			}
+			else return {
 				...state,
-				filtered: state.search.length
-					? (state.filtered.length &&
-							state.filtered.filter((game) => typeof game.id === "number")) ||
-					  state.search.filter((game) => typeof game.id === "number")
-					: (state.filtered.length &&
-							state.filtered.filter((game) => typeof game.id === "number")) ||
-					  state.videogames.filter((game) => typeof game.id === "number"),
-			};
+				filtered: state.videogames.filter((game) => typeof game.id === "number")
+			}
 
 		case CLEAR_FILTER:
 			return {
@@ -107,8 +124,14 @@ export default function reducer(state = initialState, { type, payload }) {
 			return {
 				...state,
 				videogameDetail: [],
-				search: [],
+				paging: [],
 			};
+
+		case CLEAR_SEARCH:
+			return {
+				...state,
+				search: []
+			}
 
 		case SORT_AZ:
 			return {
@@ -183,7 +206,7 @@ export default function reducer(state = initialState, { type, payload }) {
 			};
 
 		case PAGING:
-			if (state.filtered.length) {
+			if (state.filtered !== "") {
 				return {
 					...state,
 					paging: state.filtered.slice(payload, payload + 15),

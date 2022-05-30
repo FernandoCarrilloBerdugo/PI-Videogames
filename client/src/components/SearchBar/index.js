@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory, useLocation } from "react-router";
-import { searchGames } from "../../redux/actions";
+import { clearFilter, clearSearch, searchGames } from "../../redux/actions";
 
 export default function SearchBar() {
 	const [name, setName] = useState("");
+
+	// const searchList = useSelector(state=>state.search)
 
 	const dispatch = useDispatch();
 
@@ -22,9 +24,13 @@ export default function SearchBar() {
 			alert("type a game in the box");
 		} else {
 			history.replace({ pathname: location.pathname, search: name });
+			dispatch(clearFilter())
+			dispatch(clearSearch())
 			dispatch(searchGames(name));
+			setName("")
 		}
 	};
+	
 	
 	return (
 		<form onSubmit={handleSubmit}>

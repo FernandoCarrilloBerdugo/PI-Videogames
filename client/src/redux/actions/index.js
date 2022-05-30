@@ -14,6 +14,7 @@ import {
 	SORT_ZA,
 	SORT_RATING,
 	PAGING,
+	CLEAR_SEARCH,
 } from "./actionTypes";
 import axios from "axios";
 
@@ -98,6 +99,10 @@ export function clearFilter() {
 
 export function clearPage() {
 	return { type: CLEAR_PAGE };
+}
+
+export function clearSearch() {
+	return {type: CLEAR_SEARCH}
 }
 
 export function sort(sortType) {

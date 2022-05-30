@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { clearFilter, filterByGenre, filterCreated, getGenres } from "../../redux/actions";
+import { clearFilter, filterByGenre, filterCreated, paging } from "../../redux/actions";
 
 export default function FilterByGenre() {
 	const [filter, setFilter] = useState("All");
@@ -11,14 +11,11 @@ export default function FilterByGenre() {
 	const { genres } = useSelector((state) => state);
 
 	useEffect(() => {
-		if (!genres.length) dispatch(getGenres());
-		// eslint-disable-next-line
-	}, []);
+		(filter === "All" || created === "All") && dispatch(clearFilter())
+		filter !== "All" && dispatch(filterByGenre(filter))
+		created !== "All" && dispatch(filterCreated(created))
+		dispatch(paging(1))
 
-	useEffect(() => {
-		if (filter !== "All") dispatch(filterByGenre(filter));
-    if (created !== "All") dispatch(filterCreated(created))
-		else if(created === filter) dispatch(clearFilter());
 		// eslint-disable-next-line
 	}, [filter,created]);
 

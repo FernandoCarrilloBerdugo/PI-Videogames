@@ -29,12 +29,9 @@ const Create = () => {
 	const games = useSelector((state) => state);
 
 	useEffect(() => {
-		async function fetchdata() {
-			await dispatch(getGenres());
-			dispatch(getPlatforms());
-		}
-		if (!games.genres.length) fetchdata();
-	}, [dispatch, games]);
+		dispatch(getGenres());
+		dispatch(getPlatforms());
+	}, []);
 
 	function validateName(e) {
 		if (e.target.value.trim() === "") {
