@@ -14,7 +14,7 @@ import Loading from "../Loading";
 import Paging from "../Paging";
 import SearchBar from "../SearchBar";
 import Sort from "../Sort";
-import "../Home/index.css";
+import "./index.css";
 
 export default function Home() {
 	const dispatch = useDispatch();
@@ -50,8 +50,10 @@ export default function Home() {
 			) : (
 				<>
 					<SearchBar />
+					<div className="selectors-container">
 					<FilterByGenre />
 					<Sort />
+					</div>
 					<Paging />
 					<div className="cards-container">
 						{games.paging.length ? (

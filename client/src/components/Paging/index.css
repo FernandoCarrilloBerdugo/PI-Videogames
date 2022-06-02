@@ -1,0 +1,22 @@
+.paging-container {
+	display: flex;
+	flex-wrap: nowrap;
+	justify-content: center;
+}
+
+.page-button {
+	margin: 3px 5px;
+	border-radius: 10px;
+	font-size: 17px;
+	font-weight: bold;
+	border: none;
+}
+
+.active-page {
+	margin: 3px 5px;
+  border-radius: 10px;
+	font-size: 17px;
+	font-weight: bold;
+	border: none;
+  background-color: rgb(182, 182, 182)
+}

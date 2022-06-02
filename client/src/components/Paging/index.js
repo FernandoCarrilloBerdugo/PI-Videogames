@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { paging } from "../../redux/actions";
+import './index.css'
 
 export default function Paging() {
 
@@ -32,14 +33,15 @@ export default function Paging() {
   },[page])
 
   const handleChange = (e) => {
-    setPage(e.target.value)  
+    setPage(e.target.value)
   }
 
   return (
-    <div>
+    <div className="paging-container">
       {(numberOfButtons.length && games.paging.length > 0)
-      && numberOfButtons.map((element) => (
-        <button key={element} value={element} onClick={handleChange}>{element}</button>
+      && numberOfButtons.map((element,i) => (
+        <button className={page === element ? "active-page" :"page-button"} key={element} value={element} onClick={handleChange}>{element}</button>
+        // <button className="page-button" key={element} value={element} onClick={handleChange}>{element}</button>
       ))
     }
     </div>

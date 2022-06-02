@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { clearFilter, filterByGenre, filterCreated, paging } from "../../redux/actions";
+import './index.css'
 
 export default function FilterByGenre() {
 	const [filter, setFilter] = useState("All");
@@ -29,9 +30,9 @@ export default function FilterByGenre() {
 
 	return (
 		<div className="genre-filter-container">
-			<div>
+			<div className="filter-container">
 				<label>Filter by Genre </label>
-				<select onChange={(e) => handleChangeGenre(e)}>
+				<select className="genre-selector" onChange={(e) => handleChangeGenre(e)}>
 					<option value="All">All</option>
 					{genres &&
 						genres.map((genre) => (
@@ -41,9 +42,9 @@ export default function FilterByGenre() {
 						))}
 				</select>
 			</div>
-			<div>
-        <label>Created by: {" "}</label>
-				<select onChange={handleChangeCreated}>
+			<div className="filter-container">
+        <label>Created by {" "}</label>
+				<select className="created-selector" onChange={handleChangeCreated}>
           <option value="All">All</option>
 					<option value="Server">Server</option>
 					<option value="User">User</option>

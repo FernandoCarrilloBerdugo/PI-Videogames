@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { validDate } from "./validateDate";
 import { useDispatch, useSelector } from "react-redux";
 import "./index.css";
-import { createVideogame } from "../../redux/actions";
+import { createVideogame, getGenres, getPlatforms } from "../../redux/actions";
 import Loading from "../Loading";
 
 const Create = () => {
@@ -27,6 +27,12 @@ const Create = () => {
 	const dispatch = useDispatch();
 
 	const games = useSelector((state) => state);
+
+	useEffect(() => {
+		!games.genres.length && dispatch(getGenres());
+		!games.platforms.length && dispatch(getPlatforms());
+		// eslint-disable-next-line
+	}, []);
 
 	function validateName(e) {
 		if (e.target.value.trim() === "") {
@@ -166,44 +172,52 @@ const Create = () => {
 				<>
 					<div className="create-title">Please fill all fields</div>
 					<form onSubmit={handleSubmit}>
-						<div className="field-container">
-							<div className="error-container">
-								{error.name && <span>{error.name}</span>}
+						<div className="test-container">
+							<div className="field-container">
+								<div className="error-container">
+									{error.name && <span>{error.name}</span>}
+								</div>
+								<div className="input-container">
+									<label>
+										name:{" "}
+										<input className="input-box" type="text" name="name" onChange={validateName} />
+									</label>
+								</div>
 							</div>
-							<div className="input-container">
-								<label>
-									name:{" "}
-									<input type="text" name="name" onChange={validateName} />
-								</label>
+							<div className="field-container">
+								<div className="error-container">
+									{error.released && <span>{error.released}</span>}
+								</div>
+								<div className="input-container">
+									<label>
+										Date released:{" "}
+										<input
+										className="input-box"
+											type="date"
+											name="released"
+											onChange={validateDate}
+										/>
+									</label>
+								</div>
 							</div>
-						</div>
-						<div className="field-container">
-							<div className="error-container">
-								{error.released && <span>{error.released}</span>}
-							</div>
-							<div className="input-container">
-								<label>
-									Date released:{" "}
-									<input type="date" name="released" onChange={validateDate} />
-								</label>
-							</div>
-						</div>
-						<div className="field-container">
-							<div className="error-container">
-								{error.rating && <span>{error.rating}</span>}
-							</div>
-							<div className="input-container">
-								<label>
-									Rating:{" "}
-									<input
-										type="number"
-										step={0.01}
-										max={5}
-										min={1}
-										name="rating"
-										onChange={validateRating}
-									/>
-								</label>
+							<div className="field-container">
+								<div className="error-container">
+									{error.rating && <span>{error.rating}</span>}
+								</div>
+								<div className="input-container">
+									<label>
+										Rating:{" "}
+										<input
+										className="input-box"
+											type="number"
+											step={1}
+											max={5}
+											min={1}
+											name="rating"
+											onChange={validateRating}
+										/>
+									</label>
+								</div>
 							</div>
 						</div>
 						<div className="field-container">
@@ -211,9 +225,10 @@ const Create = () => {
 								{error.description && <span>{error.description}</span>}
 							</div>
 							<div className="input-container">
-								<label>
+								<label className="description">
 									Description:{" "}
 									<textarea
+									className="input-box"
 										type="text"
 										name="description"
 										onChange={validateDescription}
@@ -251,7 +266,7 @@ const Create = () => {
 									</div>
 								))}
 						</div>
-						<button type="submit">Enviar</button>
+						<button className="submit" type="submit">Enviar</button>
 					</form>
 				</>
 			)}

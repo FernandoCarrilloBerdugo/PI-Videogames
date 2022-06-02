@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { sort, paging } from "../../redux/actions";
+import './index.css';
 
 export default function Sort() {
   
@@ -21,7 +22,7 @@ export default function Sort() {
   return (
     <div>
     <label>Sort by: </label>
-    <select onChange={handleChange}>
+    <select className="sort-selector" onChange={handleChange}>
       <option value="Rating">Rating</option>
       <option value="AZ">Name</option>
       <option value="ZA">Name Inverse</option>

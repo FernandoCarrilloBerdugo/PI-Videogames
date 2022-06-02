@@ -1,0 +1,16 @@
+.genre-filter-container{
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.filter-container{
+  margin: 10px 8px;
+}
+
+.genre-selector{
+  border-radius: 10px;
+}
+
+.created-selector{
+  border-radius: 10px;
+}
