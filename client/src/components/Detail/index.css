@@ -52,22 +52,31 @@
   margin: 0;
 }
 
+.game-description{
+	display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+	width: 70%;
+}
+
 .platforms {
 	display: flex;
 	flex-wrap: nowrap;
+	flex-direction: column;
 	width: 60%;
 	margin: 0;
-	justify-content: center;
+	/* justify-content: center; */
 	align-items: center;
 }
 
 .platforms-list {
 	display: flex;
 	flex-wrap: wrap;
-	width: 50%;
+	/* width: 50%;
 	justify-content: center;
 	align-items: content;
-	flex-direction: column;
+	flex-direction: column; */
 }
 
 .platforms-list-li {

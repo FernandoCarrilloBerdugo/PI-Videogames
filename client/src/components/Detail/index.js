@@ -63,12 +63,12 @@ const Detail = () => {
 							))}
 					</div>
 					<div
-						className="description"
+						className="game-description"
 						dangerouslySetInnerHTML={{ __html: game.description }}
 					></div>
 					<div className="platforms">
 						<div className="platforms-title">
-							<h2>Platforms: </h2>
+							<h2>Platforms</h2>
 						</div>
 						<div className="platforms-list">
 							{(game.length || game.platforms) &&

@@ -26,6 +26,7 @@
 
 .card-image{
   max-width: 90%;
+  max-height: 40%;
   height: auto;
   border-radius: 20px;
 }
@@ -35,7 +36,8 @@
 	flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  background-color: white;
+  color: white;
+  background-color: rgba(133, 132, 132, 0.486);
   border-radius: 30px;
   margin: 3% 5%;
 }
