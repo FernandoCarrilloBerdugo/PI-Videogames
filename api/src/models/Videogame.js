@@ -21,7 +21,7 @@ module.exports = (sequelize) => {
 			},
 			description: {
 				type: DataTypes.TEXT,
-				allowNull: false,
+				// allowNull: false,
 				validate: {
 					notEmpty: true,
 				},
@@ -39,7 +39,7 @@ module.exports = (sequelize) => {
 			},
 			platforms: {
 				type: DataTypes.ARRAY(DataTypes.STRING),
-				allowNull: false,
+				// allowNull: false,
 			},
 		},
 		{

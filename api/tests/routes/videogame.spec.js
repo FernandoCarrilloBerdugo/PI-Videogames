@@ -10,6 +10,7 @@ const videogame = {
 };
 
 describe('Videogame routes', () => {
+  
   before(() => conn.authenticate()
   .catch((err) => {
     console.error('Unable to connect to the database:', err);
@@ -17,8 +18,8 @@ describe('Videogame routes', () => {
   beforeEach(() => Videogame.sync({ force: true })
     .then(() => Videogame.create(videogame)));
   describe('GET /videogames', () => {
-    it('should get 200', () =>
-      agent.get('/videogames').expect(200)
-    );
+    it('should respong with status 200', async () =>
+      await agent.get('/videogames').expect(200)
+    ).timeout(6000);
   });
 });
