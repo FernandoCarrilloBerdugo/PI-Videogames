@@ -30,7 +30,7 @@ export default function Paging() {
     console.log(typeof(page))
 		dispatch(paging(page));
 		// eslint-disable-next-line
-	}, [page]);
+	}, [dispatch,page]);
 
 	const onPrevious = () => {
 		if (page > 1) {

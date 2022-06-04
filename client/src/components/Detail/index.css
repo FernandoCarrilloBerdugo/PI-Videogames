@@ -43,9 +43,10 @@
 
 .genres {
 	display: flex;
-	flex-wrap: nowrap;
+	flex-wrap: wrap;
 	justify-content: center;
 	align-items: center;
+	max-width: 80%;
 }
 
 .genre-li{
@@ -80,7 +81,7 @@
 }
 
 .platforms-list-li {
-	padding: 0 10%;
+	/* padding: 0 10%; */
   width: 100%;
 	margin: 3px;
 }

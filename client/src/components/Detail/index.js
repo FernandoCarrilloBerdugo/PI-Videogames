@@ -62,6 +62,7 @@ const Detail = () => {
 								</ul>
 							))}
 					</div>
+					<h2>Description</h2>
 					<div
 						className="game-description"
 						dangerouslySetInnerHTML={{ __html: game.description }}

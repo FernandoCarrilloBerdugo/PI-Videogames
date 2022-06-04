@@ -18,7 +18,7 @@ export default function FilterByGenre() {
 		dispatch(paging(1))
 
 		// eslint-disable-next-line
-	}, [filter,created]);
+	}, [dispatch,filter,created]);
 
 	const handleChangeGenre = (e) => {
 		setFilter(e.target.value);

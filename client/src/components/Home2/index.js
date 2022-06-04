@@ -35,13 +35,13 @@ export default function Home() {
 		games.videogames.length && !games.paging.length && dispatch(paging(1));
 		games.videogames.length && dispatch(sort("Rating"));
 		// eslint-disable-next-line
-	}, [games.videogames]);
+	}, [dispatch,games.videogames]);
 
 	useEffect(() => {
 		games.search.length && dispatch(paging(1));
 		current !== search && setCurrent(search)
 		// eslint-disable-next-line
-	}, [games.search]);
+	}, [dispatch,games.search]);
 
 	return (
 		<div className="home-container">

@@ -13,7 +13,7 @@ export default function Sort() {
     dispatch(sort(sorting))
     dispatch(paging(1))
     // eslint-disable-next-line
-  }, [sorting])
+  }, [dispatch,sorting])
 
   const handleChange = (e) => {
     setSorting(e.target.value)
