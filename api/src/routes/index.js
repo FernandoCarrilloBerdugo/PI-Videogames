@@ -20,6 +20,11 @@ router.get("/videogames", async (req, res) => {
 			let { data } = await axios.get(
 				`${url}/games?key=${apiKey}&search=${name}`
 			);
+			// const dbGames = await Videogame.findAll({
+			// 	where: { name: { [Op.iLike]: `%${name}%` } },
+			// 	include: [{ model: Genre }]
+			// });
+			// dbGames.forEach((game) => data.results.push(game));
 			data = format(data.results, "query");
 			res.json(data);
 		} else {
@@ -33,7 +38,7 @@ router.get("/videogames", async (req, res) => {
 				data.results.forEach((entry) => games.push(entry));
 			}
 			const dbGames = await Videogame.findAll({ include: [{ model: Genre }] });
-			dbGames.forEach(game => games.push(game))
+			dbGames.forEach((game) => games.push(game));
 			games = format(games, "general");
 			res.json(games);
 		}
@@ -92,8 +97,8 @@ router.post("/videogame", async (req, res) => {
 		const { name, description, released, rating, genres, platforms } = req.body;
 		const foundGame = await Videogame.findOne({ where: { name } });
 		if (foundGame) {
-			throw new Error("Game already exist");}
-		else if (
+			throw new Error("Game already exist");
+		} else if (
 			!name ||
 			!description ||
 			!released ||
@@ -101,7 +106,7 @@ router.post("/videogame", async (req, res) => {
 			!genres.length ||
 			!platforms.length
 		) {
-			res.status(400).send("faltan datos")
+			res.status(400).send("faltan datos");
 			throw new Error("faltan datos obligatorios");
 		} else {
 			const newGame = await Videogame.create({
