@@ -21,7 +21,7 @@ export default function Sort() {
 
   return (
     <div>
-    <label>Sort by: </label>
+    <label>Sort by{" "} </label>
     <select className="sort-selector" onChange={handleChange}>
       <option value="Rating">Rating</option>
       <option value="AZ">Name</option>

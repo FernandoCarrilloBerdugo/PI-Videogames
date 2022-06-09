@@ -13,7 +13,6 @@ const Landing = () => {
 			</div>
 				<div className="landingButton">
 			<Link to="/videogames" className="link">
-					{/* <h2>Enter</h2> */}
 					<button className="landing-button">Enter</button>
 			</Link>
 				</div>

@@ -9,23 +9,8 @@ const NavBar = () => {
 
 	const handleClick = () => {
 		dispatch(clearSearch());
-		// dispatch(clearFilter())
 		dispatch(paging(1));
 	};
-
-	// return (
-	//   <ul className="navbar">
-	//     <li className="navbar-element">
-	//       <Link className="link" to='/'>Landing</Link>
-	//     </li>
-	//     <li className="navbar-element">
-	//       <Link onClick={handleClick} className="link" to='/videogames'>Home</Link>
-	//     </li>
-	//     <li className="navbar-element">
-	//       <Link className="link" to='/create/videogame'>Create a Game</Link>
-	//     </li>
-	//   </ul>
-	// )
 
 	return (
 		<ul className="navbar">

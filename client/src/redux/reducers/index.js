@@ -134,14 +134,6 @@ export default function reducer(state = initialState, { type, payload }) {
 			}
 
 		case SORT_AZ:
-			// return {
-			// 	...state,
-			// 	paging: state.paging.sort((a,b) => {
-			// 		if (a.name.toLowerCase() < b.name.toLowerCase()) return -1;
-			// 		if (a.name.toLowerCase() > b.name.toLowerCase()) return 1;
-			// 		else return 0;
-			// 	})
-			// }
 			return {
 				...state,
 				videogames: state.videogames.sort((a, b) => {
@@ -166,14 +158,6 @@ export default function reducer(state = initialState, { type, payload }) {
 			};
 
 		case SORT_ZA:
-			// return {
-			// 	...state,
-			// 	paging: state.paging.sort((a,b) => {
-			// 		if (a.name.toLowerCase() < b.name.toLowerCase()) return 1;
-			// 		if (a.name.toLowerCase() > b.name.toLowerCase()) return -1;
-			// 		else return 0;
-			// 	})
-			// }
 			return {
 				...state,
 				videogames: state.videogames.sort((a, b) => {
@@ -198,14 +182,6 @@ export default function reducer(state = initialState, { type, payload }) {
 			};
 
 		case SORT_RATING:
-			// return {
-			// 	...state,
-			// 	paging: state.paging.sort((a,b)=>{
-			// 		if(a.rating < b.rating) return 1
-			// 		if(a.rating > b.rating) return -1
-			// 		else return 0
-			// 	})
-			// }
 			return {
 				...state,
 				videogames: state.videogames.sort((a, b) => {
