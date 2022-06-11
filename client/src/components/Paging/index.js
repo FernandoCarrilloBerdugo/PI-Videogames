@@ -27,8 +27,7 @@ export default function Paging() {
 	}
 
 	useEffect(() => {
-    console.log(typeof(page))
-		dispatch(paging(page));
+	 dispatch(paging(page));
 		// eslint-disable-next-line
 	}, [dispatch,page]);
 

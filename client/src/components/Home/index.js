@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import {
 	getGenres,
 	getPlatforms,
@@ -25,15 +25,14 @@ export default function Home() {
 
 	const [current,setCurrent] = useState("")
 
-	useEffect(() => {});
+	const history = useHistory()
 
 	useEffect(() => {
-		console.log("montar por videogames")
 		!games.genres.length && dispatch(getGenres());
 		!games.platforms.length && dispatch(getPlatforms());
-		!games.videogames.length && dispatch(getVideogames());
-		games.videogames.length && !games.paging.length && dispatch(paging(1));
-		games.videogames.length && dispatch(sort("Rating"));
+		games.videogames.length < 100 && dispatch(getVideogames());
+		games.videogames.length >= 100 && !games.paging.length && dispatch(paging(1));
+		games.videogames.length >= 100 && dispatch(sort("Rating"));
 		// eslint-disable-next-line
 	}, [dispatch,games.videogames]);
 
@@ -55,6 +54,7 @@ export default function Home() {
 					<Sort />
 					</div>
 					<Paging />
+					{history.location.search && <h3>Results for: {history.location.search.slice(1)}</h3>}
 					<div className="cards-container">
 						{games.paging.length ? (
 							games.paging.map((game) => (

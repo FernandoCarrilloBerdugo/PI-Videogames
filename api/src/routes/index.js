@@ -135,7 +135,7 @@ router.post("/videogame", async (req, res) => {
 		}
 	} catch (error) {
 		console.log(error);
-		res.json(error);
+		res.status(400).send(error.message);
 	}
 });
 

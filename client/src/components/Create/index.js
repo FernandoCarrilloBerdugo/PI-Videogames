@@ -116,16 +116,16 @@ const Create = () => {
 	}
 
 	function handleGenres(e) {
-		let updateGenres = [...data.genres];
-		if (e.target.checked) {
-			updateGenres.push(e.target.value);
-		} else {
-			updateGenres = updateGenres.filter((genres) => genres !== e.target.value);
-		}
-		setData({
-			...data,
-			[e.target.name]: updateGenres,
-		});
+			let updateGenres = [...data.genres];
+			if (e.target.checked) {
+				updateGenres.push(e.target.value);
+			} else {
+				updateGenres = updateGenres.filter((genres) => genres !== e.target.value);
+			}
+			setData({
+				...data,
+				[e.target.name]: updateGenres,
+			});
 	}
 
 	function handlePlatforms(e) {
@@ -237,12 +237,13 @@ const Create = () => {
 							</div>
 						</div>
 						<div className="genre-selection">
-							<p className="checkbox-title">Select the genres that apply</p>
+							<p className="checkbox-title">Select the genres that apply (max. 5)</p>
 							{games.genres.length &&
 								games.genres.map((genres) => (
 									<div className="checkbox-element" key={genres}>
 										<input
 											type="checkbox"
+											disabled={data.genres.length === 5 && !data.genres.includes(genres)}
 											name="genres"
 											value={genres}
 											onChange={handleGenres}
@@ -252,13 +253,14 @@ const Create = () => {
 								))}
 						</div>
 						<div className="platform-selection">
-							<p className="checkbox-title">Select the platforms that apply</p>
+							<p className="checkbox-title">Select the platforms that apply (max. 5)</p>
 							{games.platforms.length &&
 								games.platforms.map((platform) => (
 									<div className="checkbox-element" key={platform}>
 										<input
 											type="checkbox"
 											name="platforms"
+											disabled={data.platforms.length === 5 && !data.platforms.includes(platform)}
 											value={platform}
 											onChange={handlePlatforms}
 										/>

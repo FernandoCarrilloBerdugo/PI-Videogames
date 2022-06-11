@@ -72,11 +72,14 @@ export function getPlatforms() {
 
 export function createVideogame(input) {
 	return async (dispatch) => {
-		const { data } = await axios.post("http://localhost:3001/videogame", input);
-		if (data.name) {
+		try {
+			const { data } = await axios.post("http://localhost:3001/videogame", input);
 			dispatch({ type: CREATE_VIDEOGAME, payload: data });
-			window.alert("game was created succesfully");
-		} else window.alert("Game with that name already exist in the database");
+			window.alert("game was created succesfully");		
+		} catch (error) {
+			console.log(error)
+			alert(error.response.data)
+		}
 	};
 }
 
